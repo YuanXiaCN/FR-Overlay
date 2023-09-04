@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<!-- 文件头 -->
+<head>
+    <meta charset="UTF-8">
+    <title>Abyss Overlay</title>
+    <!--标题，作用未知-->>
+    <script data="../data/index.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css">
+    <!--头部的引用和实装-->
+    <meta http-equiv="Content-Security-Policy" content="script-data 'self' 'unsafe-inline';"/>
+    <!--允许导入且运行脚本-->>
+</head>
+<body>
+    <div id="base">
+        <div class="menu">
+            <h1 class="menuitem" id="logo_title">ABYSS</h1>
+            <!--添加按钮的工具提示-->
+            <img data="" id="clientimg">
+            <!--上方标题栏的按钮-->
+            <button name="QQ聊天" class="menuitem tabsbuttons" id="QQ"></button>
+            <button name="信息" class="menuitem tabsbuttons" id="info" style="width: 31px;"></button>
+            <button name="会话" class="menuitem tabsbuttons" id="session" style="width: 31px;"></button>
+            <button name="音乐" class="menuitem tabsbuttons" id="music" style="width: 31px;"></button>
+            <button name="设置" class="menuitem tabsbuttons" id="settings"></button>
+            <button name="更新" class="menuitem" id="update"></button>
+            <button name="退出" class="menuitem" id="quit"></button>
+            <button name="最小化" class="menuitem" id="minimize"></button>
+            <button name="显示" class="menuitem" id="show"></button>
+            <img id="musicvisualizer" data="../assets/musicvisualizer.gif">
+            <!-- <button name="pp" class="menuitem" id="pp"></button> -->
+            <!-- <button name="ppp" class="menuitem" id="ppp"></button> -->
+        </div>
+
+        <div id="settingsdiv">
+            <div class="settings-container">
+                <div class="setting-group" style="z-index: 2;">
+                    <p>查询模式</p>
+                    <div class="custom-select-wrapper" id="gamemodebtn" style="filter: none;">
+                        <div class="custom-select">
+                            <div class="custom-select_trigger"><span style="text-align: center; width: 85%;">Select</span>
+                                <div class="arrow"></div>
+                            </div>
+                            <div class="custom-options">
+                                <span class="custom-option" id="bw">起床战争</span>
+                                <span class="custom-option" id="sw">空岛战争</span>
+                                <span class="custom-option" id="duels">决斗游戏</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="setting-group" style="z-index: 1;">
+                    <p>起床数据查询模式</p>
+                    <div class="custom-select-wrapper" id="gmbtn" style="filter: none;">
+                        <div class="custom-select">
+                            <div class="custom-select_trigger"><span style="text-align: center; width: 85%;">Select</span>
+                                <div class="arrow"></div>
+                            </div>
+                            <div class="custom-options">
+                                <span class="custom-option" id="overall">所有模式</span>
+                                <span class="custom-option" id="solos">单排</span>
+                                <span class="custom-option" id="doubles">双排</span>
+                                <span class="custom-option" id="threes">三排</span>
+                                <span class="custom-option" id="fours">四排</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <p>Minecraft用户名</p>
+                    <input type="text" class="api_key__input" id="ign_input" name="IGN" maxlength="16" size="20" spellcheck="false" placeholder="Type your IGN here" style="position: absolute; top: 4px; right: 3px;">
+                    <span>你可以在这输入你的Minecraft ID去获得更全面的功能，若要更改请在上方输入你的用户名</span>
+                </div>
+
+                <div class="setting-group">
+                    <p>Hypixel API 密钥</p>
+                    <div style="position: absolute; top: 4px; right: 3px;">
+                        <input type="text" class="api_key__input" id="api_key" name="Hypixel API Key" maxlength="36" size="36" spellcheck="false" placeholder="Click to paste API key">
+                        <button name="Revert" class="revert" id="revert_api-key" style="display: inline-block; width: 28px; height: 28px;"></button>
+                    </div>
+                    <span>我们虽然推出了无需密钥的查询方式，但是我们不能保证我们的方式能够一直使用，此选项您可以选择性填写，若您填写我们将会优先使用你的API密钥进行查询<br><b>提示:</b>我们不会泄露你的API密钥，若因为你本人原因导致泄露，后果需您自行承担</span>
+                </div>
+
+                <div class="setting-group">
+                    <p>在受到限制的时候启用你的密钥</p>
+                    <label class="switch">
+                        <input class="settingspage" type="checkbox" id="fbkeybtn" checked>
+                        <span class="slider round"></span>
+                    </label>
+                    <span>当受到限制时使用你的密钥，以便我们可以继续为你获取数据</span>
+                </div>
+
+                <div class="setting-group">
+                    <p>自动查询 [测试]</p>
+                    <label class="switch">
+                        <input type="checkbox" id="whobtn">
+                        <span class="slider round"></span>
+                    </label>
+                    <span>我们会在你加入游戏的时候自动输入 /who 命令，加入大厅后请等待几秒钟再进行操作，防止干扰自动输入</span>
+                </div>
+
+                <div class="setting-group">
+                    <p>开始游戏通知</p>
+                    <label class="switch">
+                        <input class="settingspage" type="checkbox" id="notifsbtn" checked>
+                        <span class="slider round"></span>
+                    </label>
+                    <span>我们会在开始游戏的前3秒提醒你，防止你因为挂机被队友骂死</span>
+                </div>
+
+                <div class="setting-group">
+                    <p>自动隐藏和展示</p>
+                    <label class="switch">
+                        <input class="settingspage" type="checkbox" id="shrinkbtn" checked>
+                        <span class="slider round"></span>
+                    </label>
+                    <span>我们会在游戏开始时隐藏Overlay，并在检测到有人加入时展示</span>
+                </div>
+
+                <div class="setting-group">
+                    <p>公会后缀</p>
+                    <label class="switch">
+                        <input class="settingspage" type="checkbox" id="gtagbtn" checked>
+                        <span class="slider round"></span>
+                    </label>
+                    <span>这个选项会显示玩家的公会后缀</span>
+                </div>
+
+                <div class="setting-group">
+                    <p>玩家@我提醒</p>
+                    <label class="switch">
+                        <input class="settingspage" type="checkbox" id="callbtn" checked>
+                        <span class="slider round"></span>
+                    </label>
+                    <span>我们将会在有玩家提及你的名字时提醒你，这在大厅寻找组队的时候很有用<br><b>提示:</b>你必须设置你的Minecraft ID这个功能才能正常运行</span>
+                </div>
+
+                <div class="setting-group">
+                    <p>切换客户端</p>
+                    <div class="custom-select-wrapper" id="changeclient" style="width: 240px">
+                        <div class="custom-select">
+                            <div class="custom-select_trigger" style="text-align: center;">切换客户端</div>
+                        </div>
+                    </div>
+                    <span>切换客户端<br>会重启Overlay<br>后续会推出自动查找</span>
+                </div>
+
+                <div class="setting-group">
+                    <p>选择日志</p>
+                    <div class="custom-select-wrapper" id="changelogpath" style="width: 260px">
+                        <div class="custom-select">
+                            <div class="custom-select_trigger" style="text-align: center;">选择日志</div>
+                        </div>
+                    </div>
+                    <span>日志读取是Overlay的工作原理之一<br>会重启Overlay</span>
+                </div>
+                <!--
+                    To add a keybind, copy and paste one of the divs, changing the "data-type" and "data-default"
+                    Then add a case to the main.js in the switch statement with the logic in setKeybind
+                -->
+                <div class="setting-group">
+                    <p>按键绑定</p>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <p>显示/隐藏Overlay:</p>
+                        <div class="custom-select_trigger keybind" data-type="peak" data-default="CommandOrControl+Shift+A" style="text-align: center;">CTRL + SHIFT + A</div>
+                        <button name="Revert" class="revert revertkeybind"></button>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <p>清空玩家列表:</p>
+                        <div class="custom-select_trigger keybind" data-type="clear" data-default="CommandOrControl+Shift+Z" style="text-align: center;">CTRL + SHIFT + Z</div>
+                        <button name="Revert" class="revert revertkeybind"></button>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <p>切换鼠标穿透:</p>
+                        <div class="custom-select_trigger keybind" data-type="through" data-default="CommandOrControl+Shift+T" style="text-align: center;">CTRL + SHIFT + T</div>
+                        <button name="Revert" class="revert revertkeybind"></button>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <p>Overlay 主题</p>
+                    <div style="position: absolute;top: 1px;right: 1px;width: 200px;display: flex;justify-content: space-between;">
+                        <div style="overflow: visible; height: 35px; width: 30px; z-index: 1;">
+                            <div id="color-picker"></div>
+                        </div>
+                        <button name="Revert" class="revert" id="revertcolor"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="infodiv">
+            <p class="infopage" style="width: 100%; margin-left: 2px; text-align: left; color: var(--primaryColor);">➤数据颜色意义:</p>
+            <div class="infopage" style="background: #AAAAAA; color: #555555; width: 16%; margin-left: 5px;">差劲（bushi）</div>
+            <div class="infopage" style="background: #FFFFFF; color: #AAAAAA; width: 16%;">一般</div>
+            <div class="infopage" style="background: #FFAA00; color: #FFFF55; width: 16%;">中上等</div>
+            <div class="infopage" style="background: #00AAAA; color: #55FFFF; width: 16%;">上等</div>
+            <div class="infopage" style="background: #AA0000; color: #FF5555; width: 16%;">牛逼</div>
+            <div class="infopage" style="background: #AA00AA; color: #FF55FF; width: 16%;">超级宇宙无敌牛逼</div>
+            <p class="infopage" style="width: 100%; margin-left: 2px; margin-top: 20px; text-align: left; color: var(--primaryColor);">➤标签意义:</p>
+            <div class="infopage" style="color: #F3FF00; width: 16%; line-height: 23px; margin-left: 5px;">匿名 - 匿名玩家</div>
+            <div class="infopage" style="color: #FF5555; width: 16%; line-height: 23px;">狙击手 - 可能是狙击手</div>
+            <div class="infopage" style="color: #5555FF; width: 16%; line-height: 23px;">量力而行 - 牛逼的对手</div>
+            <div class="infopage" style="color: #FFB900; width: 20%; line-height: 23px;">组队 - 组队玩家</div>
+            <div class="infopage" style="color: #03C800; width: 20%; line-height: 23px;">队员 - 在你的组队里面（只会在大厅显示）</div>
+            <div class="infopage" style="color: #00C2A2; width: 16%; line-height: 23px;">@你 - 在大厅说了你的名字</div>
+            <div class="infopage" style="color: #37B836; width: 20%; line-height: 23px;">邀请组队 - 邀请你进入他们的组队</div>
+            <div class="infopage" style="color: #D6D600; width: 20%; line-height: 23px;">好友请求 - 请求加你为好友</div>
+            <div class="infopage" style="color: #36C700; width: 20%; line-height: 23px;">会员 - 你的公会成员</div>
+            <p class="infopage" style="width: 100%; text-align: left; margin-left: 2px; margin-top: 25px; color: var(--primaryColor);">➤显示/隐藏Overlay（默认）: CTRL+SHIFT+A</p>
+            <p class="infopage" style="width: 100%; margin-left: 2px; margin-top: 20px; text-align: left; color: var(--primaryColor);">➤使用教程:</p>
+            <p class="infopage" style="width: 100%; font-size: 15px; margin-left: 2px; text-align: left;">✧输入 /who 指令显示所有在线成员，进入游戏后再输入。Overlay查询数据需要一点点时间，请耐心等待，因为Overlay是半透明的，可以将overlay放置在右上角</p>
+            <p class="infopage" style="width: 100%; margin-left: 2px; margin-top: 20px; text-align: left; color: var(--primaryColor);">➤调整模式:</p>
+            <p class="infopage" style="width: 100%; font-size: 15px; margin-left: 2px; text-align: left;">✧你可以拖动标题栏去移动Overlay，还可以拖动边框调整大小，点击右上角的绿色箭头可以隐藏/显示Overlay</p>
+            <p class="infopage" style="width: 100%; margin-left: 2px; margin-top: 20px; text-align: left; color: var(--primaryColor);">➤数据统计:</p>
+            <p class="infopage" style="width: 100%; font-size: 15px; margin-left: 2px; text-align: left;">✧要查看你的数据，可以点击标题栏的时钟按钮，可以查询你近期的数据变化，使用/api new 命令来重置你的数据统计</p>
+            <p class="infopage" style="width: 100%; margin-left: 2px; margin-top: 20px; text-align: left; color: var(--primaryColor);">➤命令:</p>
+            <p class="infopage" style="width: 100%; font-size: 15px; margin-left: 2px; text-align: left;">✧"/w cl 命令可以清楚Overlay显示的所有玩家数据，利用 /w ![ID] 命令去查询指定一个人的数据（例如：/w !Nacho_nay）</p>
+            <p class="infopage" style="width: 100%; margin-left: 2px; margin-top: 20px; text-align: left; color: var(--primaryColor);">➤提示:</p>
+            <p class="infopage" style="width: 100%; font-size: 15px; margin-left: 2px; text-align: left;">✧这个Overlay仍然处于开发阶段，若你遇到了任何BUG和新建议，请加入我们的QQ群和我保持联系，我们将会在感谢名单中加入你的名字</p>
+        </div>
+
+        <div id="sessiondiv">
+            <img id="sessionavatar" style="position: absolute; right: 10px; margin-top: 10px; filter: drop-shadow(2px 2px rgb(0, 0, 0));">
+            <p id="sessiontitle" class="sessionpage" style="font-size: 20px; position: relative; width: 100%; color: var(--primaryColor);">数据查询不可用！</p>
+            <p id="sessionign" class="sessionpage" style="font-size: 25px; margin-top: 40px; margin-left: 10px; text-align: left; display: block;">--</p>
+            <p id="sessionhtml" class="sessionpage" style="margin-top: 20px; margin-left: 10px; text-align: left;"><span style="color: red">加载数据时出错<br>请在设置里面检查你的ID</span></p>
+            <p id="sessiontime" class="sessionpage" style="right: 10px; bottom: 5px; position: absolute; font-size: 12px; text-align: right;">--</p>
+        </div>
+
+        <div id="musicdiv" style="filter: drop-shadow(2px 2px rgb(0, 0, 0));">
+            <p id="sessiontitle" class="rainbow" style="font-size: 22px; margin-top: 0; position: relative; text-align: center; width: 100%;">Overlay一起听</p>
+            <p class="musicintro" style="text-align: center; font-size: 20px; color: rgb(174, 50, 205);"><b>一起听还需要介绍？就是和你的队友一起听歌</b></p>
+            <p class="musicintro" style="text-align: left; font-size: 17px; margin: 5px; color: #1d6cff;"><span style="font-size: 19; text-decoration: underline;"><b>组队聊天命令:</b></span><br>• !play [歌名] - 点歌<br>• !remove [#] - 将 # 移除歌单<br>• !skip - 跳过这首歌<br>• !loop - 设置循环播放<br>• !clear - 清除列表里所有歌</p>
+            <p class="musicintro" id="unlinked" style="text-align: left; font-size: 20px; margin: 5px; color: red; text-decoration: underline; display: none;"><b>ERROR: YOUR MC ACCOUNT IS NOT LINKED TO THE BOT IN THE QQ chat. Click the Discord button on the top to join the server and use the command ".link [IGN]"" in #bot-commands and try again</b></p>
+            <p class="musicintro" id="nomusicbots" style="text-align: left; font-size: 20px; margin: 5px; color: red; text-decoration: underline; display: none;"><b>错误：目前没有可用的音乐机器人，所有的音乐机器人都正在被占用。请稍后再试。</b></p>
+            <div class="musicintro" style="text-align: center; margin-top: 15px; margin-bottom: 15px;"><button class="musicintro" id="startmusic">开启组队音乐</button></div>
+            <p class="musicintro" style="text-align: left; font-size: 18px; margin: 5px; color: rgb(187, 9, 9);"><span style="text-decoration: underline;"><b>提示:</b></span> 你的MC账户必须先在Overlay kook频道中与机器人进行绑定！你的私人语音频道将在kook中创建；你可以加入该频道并将您的队伍成员拖入其中。</p>
+
+            <div class="musicplaying" style="width: 100%">
+                <button name="EndMusic" class="musicplaying" id="endmusic">结束</button>
+                <p class="musicplaying" style="color: rgb(112, 112, 112); height: 14px; font-size: 14px; line-height: 14px; margin: 0 0 1px 10%;">正在播放</p>
+                <p class="musicplaying" id="songname" style="color: var(--primaryColor); height: 22px; width: 80%; font-size: 19px; line-height: 19px; margin: 0 0 1px 10%; white-space: nowrap; overflow: hidden;">//</p>
+                <div class="musicplaying" style="width: 90%; height: 10px; margin: 0 auto; overflow: visible; font-size: 0; margin-bottom: 5px;">
+                    <p id="currentsongtime" class="songtimer" style="text-align: right; direction: rtl;">0:00</p>
+                    <div style="display: inline-block; width: 89%; height: 10px; background-color: rgb(134, 134, 134); margin: 0 0.5% 0 0.5%; border-radius: 10px; overflow: hidden;"><div id="musicprogress"></div></div>
+                    <p id="fullsongtime" class="songtimer" style="text-align: left; direction: ltr;">0:00</p>
+                </div>
+                <button name="模式" class="musicbutton musicplaying" id="loopmusic" style="background-image: url(../assets/m_loop.png); margin-left: 40%;"></button>
+                <button name="当前播放" class="musicbutton musicplaying" id="playmusic" style="background-image: url(../assets/m_play.png);"></button>
+                <button name="下一首" class="musicbutton musicplaying" id="skipmusic" style="background-image: url(../assets/m_skip.png);"></button>
+    
+                <div class="musicplaying" style="height: 280px; width: 60%; border: solid rgba(136, 136, 136, 0.74); border-width: 1px; border-radius: 10px; background-color: rgba(2, 2, 2, 0.199); margin: auto; margin-bottom: 5px; overflow: hidden;">
+                    <p style="height: 10%; width: 100%; margin: 0; text-align: center; letter-spacing: 1px; background-color: rgba(145, 145, 145, 0.26); filter: drop-shadow(0);">QUEUE<span id="queuenum" style="height: 100%; width: 0%; overflow: visible; float: right; text-align: right; right: 2px; direction: rtl; font-size: 15px; vertical-align: middle; color: rgb(131, 131, 131);">0</span></p>
+                    <div style="height: 100%; overflow-x: hidden; overflow-y: auto;">
+                        <ul id="queuediv" style="width: 100%; margin: 0; padding: 0; list-style-type: none; font-family: Minecraftia; font-size: 0;">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="startup" style="color: var(--primaryColor)">选择你的启动器（将在后续开发中移除）:</p>
+        <button class="clientbutton" id="badlion" style="margin-left: 2.5%;">Badlion</button>
+        <button class="clientbutton" id="lunar">Lunar 1.8.9</button>
+        <button class="clientbutton" id="vanilla">原版/其他</button>
+        <button class="clientbutton" id="pvplounge" style="margin-left: 2.5%;">PvP Lounge</button>
+        <button class="clientbutton" id="labymod">Laby Mod</button>
+        <button class="clientbutton" id="feather">Feather</button>
+        <!-- <p class="clientbutton updatenotif" style="color: red; display: none; width: 100%; word-wrap: break-word; white-space: normal; text-align: center;">THIS VERSION IS OUT OF DATE. UPDATE BY JOINING THE DISCORD OR CLICKING THE RED UPDATE BUTTON</p> -->
+        <!--<iframe data="https://discord.com/widget?id=822639649247592528&theme=dark" width="350" height="340" allowtransparency="true" frameborder="0" sandbox="allow-same-origin allow-scripts"></iframe>-->
+        <div id="titles">
+            <p class="titleitems" style="width: 46.75%; padding-left: 2px;" id="playertitle">玩家</p>
+            <p class="titleitems" style="width: 6%;">标签</p>
+            <p class="titleitems" id="ws_nwl" style="width: 6.5%;">连胜</p>
+            <p class="titleitems" id="kdr" style="width: 9.5%;">终杀/死比</p>
+            <p class="titleitems" style="width: 7%;">胜败比</p>
+            <p class="titleitems" style="width: 7.25%;">(被)拆床比</p>
+            <p class="titleitems" id="kills" style="width: 11.25%;">终杀</p>
+            <p class="titleitems" style="width: 9%;/*background-color: rgba(238, 130, 238, 0.644);*/">胜场</p>
+        </div>
+        <div id="indexdiv">
+            <ul class="indexes" id="ign" style="width: 46.75%; text-align: left; padding-left: 2px; list-style-type: none;"></ul>
+            <ul class="indexes" id="tag" style="width: 6%; overflow: visible;"></ul>
+            <ul class="indexes" id="ws" style="width: 6.5%;"></ul>
+            <ul class="indexes" id="fkdr" style="width: 9.5%;"></ul>
+            <ul class="indexes" id="wlr" style="width: 7%;"></ul>
+            <!--<ul class="indexes" id="bblr" style="width: 7.25%;"></ul>-->
+            <ul class="indexes" id="finals" style="width: 11.25%;"></ul>
+            <ul class="indexes" id="wins" style="width: 9%;"></ul>
+        </div>
+
+        <div id="changelog">
+            <p id="changelogVersion" style="width: 100%; height: 37px; margin: 0; padding: 0; background-color: rgb(75, 75, 75); text-align: center; font-size: 20px; color: var(--primaryColor);">Changelog</p>
+            <p id="changelogClose">×</p>
+            <p style="height: calc(100% - 37px); margin: 0; margin-left: 5px; padding: 0; overflow-y: auto; color: rgb(179, 179, 179);">
+                - <b>Added UUID caching.</b> UUIDs are now cached to avoid making unnecessary calls to Mojang API<br><br>
+                - <b>Reverted hotfix for Mojang API.</b> Mojang API is fixed now!
+            </p>
+        </div>
+    </div>
+</body>
+</html>
